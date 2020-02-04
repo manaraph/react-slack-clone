@@ -16,7 +16,19 @@ class Register extends React.Component {
     })
   }
 
+  handleSumit = event => {
+   event.preventDefault();
+  }
+
+
   render() {
+    const { 
+      username,
+      email,
+      password,
+      passwordConfirmation
+    } = this.state;
+
     return (
       <Grid textAlign="center" verticalAlign="middle" className="app">
         <Grid.Column style={{maxWidth: 450}}>
@@ -24,12 +36,12 @@ class Register extends React.Component {
             <Icon name="puzzle piece" color="orange" />
             Register for DevChat
           </Header>
-          <Form size="large">
+          <Form onSubmit={this.handleSumit} size="large">
             <Segment stacked>
-              <Form.Input fluid name="username" icon="user" iconPosition="left" placeholder="Username" onChange={this.handleChange} type="text" />
-              <Form.Input fluid name="email" icon="mail" iconPosition="left" placeholder="Email Address" onChange={this.handleChange} type="email" />
-              <Form.Input fluid name="password" icon="lock" iconPosition="left" placeholder="Password" onChange={this.handleChange} type="password" />
-              <Form.Input fluid name="passwordConfirmation" icon="repeat" iconPosition="left" placeholder="Confirm Password" onChange={this.handleChange} type="password" />
+              <Form.Input fluid name="username" value={username} icon="user" iconPosition="left" placeholder="Username" onChange={this.handleChange} type="text" />
+              <Form.Input fluid name="email" value={email} icon="mail" iconPosition="left" placeholder="Email Address" onChange={this.handleChange} type="email" />
+              <Form.Input fluid name="password" value={password} icon="lock" iconPosition="left" placeholder="Password" onChange={this.handleChange} type="password" />
+              <Form.Input fluid name="passwordConfirmation" value={passwordConfirmation} icon="repeat" iconPosition="left" placeholder="Confirm Password" onChange={this.handleChange} type="password" />
 
               <Button color="orange" fluid size="large">Submit</Button>
             </Segment>
