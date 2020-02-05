@@ -81,6 +81,10 @@ class Register extends React.Component {
     }
   };
 
+  handleInputError = (errors, inputName) => {
+    return errors.some(error => error.message.toLowerCase().includes(inputName)) ? 'error' : '';
+  }
+
   render() {
     const { username, email, password, passwordConfirmation, errors, loading } = this.state;
 
@@ -102,6 +106,8 @@ class Register extends React.Component {
                 placeholder='Username'
                 onChange={this.handleChange}
                 type='text'
+                className={this.handleInputError(errors, 'username')}
+
               />
               <Form.Input
                 fluid
@@ -112,6 +118,8 @@ class Register extends React.Component {
                 placeholder='Email Address'
                 onChange={this.handleChange}
                 type='email'
+                className={this.handleInputError(errors, 'email')}
+
               />
               <Form.Input
                 fluid
@@ -122,6 +130,8 @@ class Register extends React.Component {
                 placeholder='Password'
                 onChange={this.handleChange}
                 type='password'
+                className={this.handleInputError(errors, 'password')}
+
               />
               <Form.Input
                 fluid
@@ -132,6 +142,7 @@ class Register extends React.Component {
                 placeholder='Confirm Password'
                 onChange={this.handleChange}
                 type='password'
+                className={this.handleInputError(errors, 'password')}
               />
 
               <Button disabled={loading} className={loading ? 'loading' : ''} color='orange' fluid size='large'>
