@@ -9,7 +9,20 @@ class Channels extends React.Component {
     modal: false,
     channelName: '',
     channelDetails: '',
-    channelsRef: firebase.database().ref('channels')
+    channelsRef: firebase.database().ref('channels'),
+  };
+
+  componentDidMount() {
+    this.addListeners();
+  }
+
+  addListeners = () => {
+    let loadedChannels = [];
+    this.state.channelsRef.on('child_added', snap => {
+      loadedChannels.push(snap.val());
+      console.log(loadedChannels);
+      this.setState({ channels: loadedChannels });
+    });
   };
 
   openModal = () => this.setState({ modal: true });
@@ -18,12 +31,15 @@ class Channels extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  isFormValid = ({ channelName, channelDetails }) =>
+    channelName && channelDetails;
+
   handleSubmit = event => {
     event.preventDefault();
-    if(this.isFormValid(this.state)) {
+    if (this.isFormValid(this.state)) {
       this.addChannel();
     }
-  }
+  };
 
   addChannel = () => {
     const { channelsRef, channelName, channelDetails, user } = this.state;
@@ -35,23 +51,36 @@ class Channels extends React.Component {
       details: channelDetails,
       createdBy: {
         name: user.displayName,
-        avatar: user.photoURL
-      }
-    }
+        avatar: user.photoURL,
+      },
+    };
 
     channelsRef
       .child(key)
       .update(newChannel)
       .then(() => {
-        this.setState({ channelName: '', channelDetails: '', });
+        this.setState({ channelName: '', channelDetails: '' });
         this.closeModal();
         console.log('Channel added');
-      }).catch(err => {
-        console.error(err);
       })
-  }
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
-  isFormValid = ({ channelName, channelDetails }) => channelName && channelDetails;
+  // displayChannels = channels => {
+  //   channels.length > 0 &&
+  //     channels.map(channel => (
+  //       <Menu.Item
+  //         key={channel.id}
+  //         onClick={() => console.log(channel)}
+  //         name={channel.name}
+  //         style={{ opacity: 0.7 }}
+  //       >
+  //         # {channel.name}
+  //       </Menu.Item>
+  //     ));
+  // };
 
   render() {
     const { channels, modal } = this.state;
@@ -65,6 +94,7 @@ class Channels extends React.Component {
             </span>{' '}
             ({channels.length}) <Icon name='add' onClick={this.openModal} />
           </Menu.Item>
+          {/**{this.displayChannels(channels)} **/}
         </Menu.Menu>
 
         <Modal basic open={modal} onClose={this.closeModal}>
