@@ -68,19 +68,18 @@ class Channels extends React.Component {
       });
   };
 
-  // displayChannels = channels => {
-  //   channels.length > 0 &&
-  //     channels.map(channel => (
-  //       <Menu.Item
-  //         key={channel.id}
-  //         onClick={() => console.log(channel)}
-  //         name={channel.name}
-  //         style={{ opacity: 0.7 }}
-  //       >
-  //         # {channel.name}
-  //       </Menu.Item>
-  //     ));
-  // };
+  displayChannels = channels => {
+      channels.map(channel => (
+        <Menu.Item
+          key={channel.id}
+          onClick={() => console.log(channel)}
+          name={channel.name}
+          style={{ opacity: 0.7 }}
+        >
+          # {channel.name}
+        </Menu.Item>
+      ));
+  };
 
   render() {
     const { channels, modal } = this.state;
@@ -94,7 +93,17 @@ class Channels extends React.Component {
             </span>{' '}
             ({channels.length}) <Icon name='add' onClick={this.openModal} />
           </Menu.Item>
-          {/**{this.displayChannels(channels)} **/}
+          {/* {this.displayChannels(channels)} */}
+          {channels.length > 0 && channels.map(channel => (
+            <Menu.Item
+              key={channel.id}
+              onClick={() => console.log(channel)}
+              name={channel.name}
+              style={{ opacity: 0.7 }}
+            >
+              # {channel.name}
+            </Menu.Item>
+          ))}
         </Menu.Menu>
 
         <Modal basic open={modal} onClose={this.closeModal}>
