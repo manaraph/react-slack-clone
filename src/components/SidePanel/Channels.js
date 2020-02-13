@@ -82,6 +82,8 @@ class Channels extends React.Component {
   };
 
   displayChannels = channels => {
+    // console.log(channels);
+    if (channels.length > 0) {
       channels.map(channel => (
         <Menu.Item
           key={channel.id}
@@ -92,7 +94,8 @@ class Channels extends React.Component {
         >
           # {channel.name}
         </Menu.Item>
-      ));
+      )); 
+    }
   };
 
   setActiveChannel = channel => {
