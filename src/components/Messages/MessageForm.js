@@ -62,13 +62,14 @@ class MessageForm extends React.Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, message, loading } = this.state;
 
     return (
       <Segment className="message__form">
         <Input 
           fluid
           name="message"
+          value={message}
           onChange={this.handleChange}
           className={
             errors.some(err => err.message.includes('message')) ? 'error' : ''
@@ -85,6 +86,7 @@ class MessageForm extends React.Component {
             content="Add Reply"
             labelPosition="left"
             icon="edit"
+            disabled={loading}
            />
           <Button
             color="teal"
