@@ -24,7 +24,7 @@ class FileModal extends React.Component {
             fluid
             label="File types: jpg, png"
             name="file"
-            type="type"
+            type="file"
           />
         </Modal.Content>
         <Modal.Actions>
