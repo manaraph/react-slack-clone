@@ -55,8 +55,8 @@ class Messages extends React.Component {
     this.setState({ nonUniqueUsers })
   }
 
-  displayMessages = messages => (
-    messages.length > 0 && messages.map(message => (
+  displayMessages = messages => (    
+    messages.length > 0 && messages.map(message => (      
       <Message
         key={message.timestamp}
         message={message}
