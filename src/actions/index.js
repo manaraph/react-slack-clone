@@ -25,3 +25,12 @@ export const setCurrentChannel = channel => {
     }
   }
 }
+
+export const setPrivateChannel = isPrateChannel => {
+  return {
+    type: actionTypes.SET_PRIVATE_CHANNEL,
+    payload: {
+      isPrateChannel
+    }
+  }
+}
